@@ -1,0 +1,27 @@
+LED Game
+
+
+1. Generar Sucesión
+ 1.1. generar sucesión random
+ 1.2 prender led y mostrar imagen en display de acuerdo a la sucesión generada
+2. encender timer
+  2.1. poner timer de 5
+  2.2. Parpadear led cada vez más rápido hasta terminar el tiempo
+3. ingresar input
+  3.1. presionar botón
+  3.2. prender LED de botón presionado
+  3.3. reproducir sonido del botón presionado
+4. revisar si es correcto o no
+  4.1 si es correcto:
+	4.1.1. Prende LED Verde
+	4.1.2. Muestra imagen en Display diciendo que está correcto
+	4.1.3. siguiente ronda
+  4.2 si es falso:
+	4.2.1. Prende LED Rojo
+	4.2.1. Muestra imagen en display diciendo que es falso
+	4.2.3. empieza Mathquizzer
+		4.2.3.1 si Math quizzer aprueba:
+		  4.2.3.1.1 empezar nueva ronda
+		4.2.3.2 si Mathquizzer pierde
+		  4.2.3.2.1 mostrar highscore y tiempo en display
+		  4.2.3.2.2 Finalizar juego
