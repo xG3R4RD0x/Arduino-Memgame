@@ -8,45 +8,34 @@ class Button {
     Button(int pin) {
       _pin = pin;
       pinMode(_pin, INPUT_PULLUP);
-      _state = digitalRead(_pin);
-      _lastState = _state;
+      _lastButtonState = HIGH;
       _lastDebounceTime = 0;
       _debounceDelay = 50;
     }
-    bool quick_pressed(){
-      if(digitalRead(_pin)== HIGH){
-        return true;
-      } else {
-        return false;
-      }
-
-    };
-
-
 
     bool is_pressed() {
-      int reading = digitalRead(_pin);
-      if (reading != _lastState) {
+      int buttonState = digitalRead(_pin);
+      if (buttonState != _lastButtonState) {
         _lastDebounceTime = millis();
       }
 
       if ((millis() - _lastDebounceTime) > _debounceDelay) {
-        if (reading != _state) {
-          _state = reading;
+        if (buttonState != _buttonState) {
+          _buttonState = buttonState;
 
-          if (_state == LOW) {
+          if (_buttonState == LOW) {
             return true;
           }
         }
       }
-      _lastState = reading;
+      _lastButtonState = buttonState;
       return false;
     }
 
   private:
     int _pin;
-    int _state;
-    int _lastState;
+    int _buttonState;
+    int _lastButtonState;
     unsigned long _lastDebounceTime;
     unsigned long _debounceDelay;
 };

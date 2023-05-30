@@ -1,6 +1,0 @@
-Display:
-pins: D8 bis GND Rechte Seite des Boards
-
-Numpad:
-pins: D0 bis D7 Rechte Seite des Boards
-
