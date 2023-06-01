@@ -11,8 +11,6 @@ game.start();
 
 }
 
-int test =9;
-
 void loop(){
 
   

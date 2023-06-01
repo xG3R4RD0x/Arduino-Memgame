@@ -27,6 +27,7 @@ Button Button3(PC12);
 Button Button4(PC11);
 Button startButton(PA13);
 static uint32_t xorshift_state = 0xABCD1234;
+int counterLED;
 
 LEDGame::LEDGame() {
 }
@@ -36,16 +37,34 @@ void LEDGame::start() {
   // LED2.on();
   // LED3.on();
   // LED4.on();
+  counterLED = 4;
    TimerLED.on();
-   std::vector Runde = initRound(5);
-   bool test = playRound(Runde);
+  bool gameTest = true;
+  while(gameTest == true){
+  
+   std::vector<int> Runde = initRound(counterLED);
+    gameTest = playRound(Runde);
+    if(gameTest==false){
+      //if false MathQuiz is started
+     std::cout << "Math Quiz" << std::endl;
+      
+    }
+
+    counterLED++;
+  }
+  //  if (test){
+  //    Runde.push_back(3);
+  //    turn_on_random_sequence(Runde);
+  //    test = playRound(Runde);
+  //  }
+  //  else{
+     //mathgame
+   
 
    
   // GreenLED.on();
   // RedLED.on();
 
-
-  std::cout << test << std::endl;
 
 };
 
@@ -151,6 +170,7 @@ void LEDGame::turn_on_random_sequence(std::vector<int> sequence) {
     ledArray[sequence[i]].on();
     delay(500);
     ledArray[sequence[i]].off();
+    delay(250);
   };
 
 };
