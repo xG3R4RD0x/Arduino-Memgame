@@ -17,5 +17,7 @@ public:
       void countdown();
       void showInput(char input);
       void deleteInput();
+      void blackScreen();
+      void gameOver();
 };
 #endif

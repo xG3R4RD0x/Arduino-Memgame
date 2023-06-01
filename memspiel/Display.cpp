@@ -55,6 +55,13 @@ void Display::showInput(char input){
   tft.println(input);
 }
 
+void Display::gameOver(){
+  tft.fillRect(160, 120, 25, 25, ILI9341_BLACK);
+  tft.setTextSize(4);
+  tft.setCursor(0, 120);
+  tft.println("GAME OVER");
+}
+
 void Display::countdown(){
    for(int i=0; i<320; i++) {
     int x = i;
@@ -72,6 +79,10 @@ void Display::redX(){
   tft.drawLine(0, 0, tft.width(), tft.height(), ILI9341_RED);
   tft.drawLine(0, tft.height(), tft.width(), 0, ILI9341_RED);
   tft.drawLine(0, tft.height(), tft.width(), 0, ILI9341_RED);
+}
+
+void Display::blackScreen(){
+   tft.fillScreen(ILI9341_BLACK);
 }
 
 void Display::checkmark(){

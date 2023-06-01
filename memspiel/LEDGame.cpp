@@ -9,6 +9,7 @@
 #include <time.h>
 #include <iostream>
 #include <stdint.h>
+#include "Display.h"
 
 
 
@@ -28,16 +29,19 @@ Button Button4(PC11);
 Button startButton(PA13);
 static uint32_t xorshift_state = 0xABCD1234;
 int counterLED;
+Display display;
 
 LEDGame::LEDGame() {
 }
 
 void LEDGame::start() {
+  counterLED = 4;
+  display.setup();
+  display.scoreDisplay(999,counterLED-4);
   // LED1.on();
   // LED2.on();
   // LED3.on();
   // LED4.on();
-  counterLED = 4;
    TimerLED.on();
   bool gameTest = true;
   while(gameTest == true){
@@ -50,8 +54,10 @@ void LEDGame::start() {
       
     }
 
-    counterLED++;
+     gameTest ? counterLED++ : counterLED += 0;
+    display.scoreDisplay(999,counterLED-4);
   }
+  display.gameOver();
   //  if (test){
   //    Runde.push_back(3);
   //    turn_on_random_sequence(Runde);
@@ -208,13 +214,18 @@ std::vector<int> LEDGame::initRound(int size){
             RedLED.off();
             delay(100);
             }
+            display.redX();
+            delay(1000);
+            display.blackScreen();
             
             return false;
           }
 
       }
       GreenLED.on();
-      delay(500);
+      display.checkmark();
+      delay(1000);
+      display.blackScreen();
       GreenLED.off();
       return true;
 
