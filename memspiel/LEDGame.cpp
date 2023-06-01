@@ -1,4 +1,4 @@
-#include <ostream>
+#include <iostream>
 #include "Button.h"
 #include "LED.h"
 #include "LEDGame.h"
@@ -6,7 +6,10 @@
 #include <cstdlib>
 #include <vector>
 #include <random>
+#include <time.h>
 #include <iostream>
+#include <stdint.h>
+
 
 
 
@@ -23,7 +26,7 @@ Button Button2(A0);
 Button Button3(PC12);
 Button Button4(PC11);
 Button startButton(PA13);
-
+static uint32_t xorshift_state = 0xABCD1234;
 
 LEDGame::LEDGame() {
 }
@@ -34,13 +37,19 @@ void LEDGame::start() {
   // LED3.on();
   // LED4.on();
    TimerLED.on();
+   std::vector Runde = initRound(5);
+   bool test = playRound(Runde);
+
+   
   // GreenLED.on();
   // RedLED.on();
-  //std::vector<int> sequence= generateSequence(4);
 
- // std::cout <<  << std::endl;
+
+  std::cout << test << std::endl;
 
 };
+
+//for button_loop we have to use it in a loop with a condition != 9
 
 int LEDGame::button_loop(){
 
@@ -99,21 +108,42 @@ if (startButton.is_pressed() == true) {  // Si se presiona el botón
     }
 
 
-  return 0;
+  return buttonPressed;
 };
 
 std::vector<int> LEDGame::generateSequence(int size) {
-  std::vector<int> sequence(size);
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> dis(0, 3);
+
+   std::vector<int> sequence(size);
+  // std::random_device rd;
+  // std::mt19937 gen(rd());
+  // std::uniform_int_distribution<> dis(0, 3);
 
   for (int i = 0; i < size; ++i) {
-    sequence[i] = dis(gen);
+     uint32_t genNum = xorshift32();
+    
+    sequence[i] = genNum;
   }
 
   return sequence;
 };
+
+int LEDGame::randomNum(){
+  std::srand(time(nullptr)); // Seed the random number generator with the current time
+    int randomNum = std::rand() % 4; // Generate a random number between 0 and 3
+
+    std::cout << "Random Number: " << randomNum << std::endl;
+    return randomNum;
+}
+
+uint32_t LEDGame::xorshift32(void) {
+    uint32_t x = xorshift_state;
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    xorshift_state = x;
+    x = x % 4;
+    return x;
+}
 
 void LEDGame::turn_on_random_sequence(std::vector<int> sequence) {
 
@@ -125,6 +155,8 @@ void LEDGame::turn_on_random_sequence(std::vector<int> sequence) {
 
 };
 
+//We get with initRound a vector with the generated sequence, in order for us to check the input
+
 std::vector<int> LEDGame::initRound(int size){
 
   std::vector<int> sequence = generateSequence(size);
@@ -132,20 +164,38 @@ std::vector<int> LEDGame::initRound(int size){
   return sequence;
 };
 
+// We check every input with the generated sequence
+
     bool LEDGame::playRound(std::vector<int> LEDarray){
       std::vector<int> sequenceToCheck = LEDarray;
-      int pressed;
       for (int i=0; i < sequenceToCheck.size();i++){
-          pressed = button_loop();
-          if(pressed = LEDarray[i]){
-            std::cout << "correct";
+//we have to wait for an input
+
+//polling for buttons
+          int button = 9;
+          while (button == 9){
+            button = button_loop();
+          }
+          if(button == LEDarray[i]){
+            std::cout << "correct" << std::endl;
           }
           else{
-            std::cout << "false";
+            std::cout << "false" <<std::endl;
+            
+            for(int j=0; j<5; j++){
+            RedLED.on();
+            delay(100);
+            RedLED.off();
+            delay(100);
+            }
+            
             return false;
           }
 
       }
+      GreenLED.on();
+      delay(500);
+      GreenLED.off();
       return true;
 
 

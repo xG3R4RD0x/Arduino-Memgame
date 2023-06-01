@@ -11,10 +11,11 @@ game.start();
 
 }
 
+int test =9;
 
 void loop(){
-game.button_loop();
-    
+
+  
 
 }
 

@@ -16,6 +16,8 @@ class LEDGame{
     std::vector<int> initRound(int size);
     bool playRound(std::vector<int> LEDarray);
   private:
+    int randomNum();
+    uint32_t xorshift32();
 
 };
 
