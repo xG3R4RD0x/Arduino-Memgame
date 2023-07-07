@@ -5,17 +5,20 @@
 #include "Button.h"
 #include "LEDGame.h"
 
- LEDGame game;
+LEDGame game;
 void setup(){
-game.start();  
-
+   game.start();  
+   //game.Ledtester();
+   
 }
 
 void loop(){
-
-  
-
+//game.button_loop();
+//game.Ledtester();
 }
+
+
+
 
 
 

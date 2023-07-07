@@ -1,0 +1,33 @@
+necesito una función que regrese un boolean y actualice un counter para el nivel de dificultad.
+
+Class Mathquiz{
+
+
+//Constructor
+
+	Mathquiz(){
+	int MathquizDifficulty;
+	
+	}
+
+
+//creamos un Quiz con su nivel de dificultad
+
+bool createQuiz(MathquizDifficulty){
+
+	numeroA = randomNum
+	numeroB = randomNum
+	//para seleccionar un operador
+	operador= operadores[randomNum];
+
+	operación = numeroA operador numeroB
+	operación_String = "numeroA operador numeroB"
+
+	if respuesta == operacion{
+	
+	return true;
+	} else {
+	return false;
+	}
+
+}

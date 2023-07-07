@@ -48,17 +48,27 @@ void Display::scoreDisplay(int highscore, int score){
   tft.print(highscore);
 }
 
-void Display::showInput(char input){
+int Display::showInput(char input){
+  
   tft.fillRect(160, 120, 25, 25, ILI9341_BLACK);
-  tft.setTextSize(3);
+  tft.setTextSize(5);
   tft.setCursor(160, 120);
-  tft.println(input);
+  int erg = int(input) - '0';
+  tft.println(erg);
+  return erg;
+}
+
+void Display::showMathgame(const char* mathgame){
+  tft.fillRect(30, 80, 25, 25, ILI9341_BLACK);
+  tft.setTextSize(5);
+  tft.setCursor(60, 70);
+  tft.println(mathgame);
 }
 
 void Display::gameOver(){
   tft.fillRect(160, 120, 25, 25, ILI9341_BLACK);
-  tft.setTextSize(4);
-  tft.setCursor(0, 120);
+  tft.setTextSize(5);
+  tft.setCursor(30, 120);
   tft.println("GAME OVER");
 }
 
@@ -97,4 +107,3 @@ void Display::checkmark(){
   tft.drawLine(checkmarkX, checkmarkY + checkmarkHeight / 2, checkmarkX + checkmarkWidth / 2, checkmarkY + checkmarkHeight, ILI9341_GREEN);
   tft.drawLine(checkmarkX + checkmarkWidth / 2, checkmarkY + checkmarkHeight, checkmarkX + checkmarkWidth, checkmarkY, ILI9341_GREEN);
 }
-

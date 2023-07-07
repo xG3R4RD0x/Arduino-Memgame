@@ -15,7 +15,8 @@ public:
       void redX();
       void checkmark();
       void countdown();
-      void showInput(char input);
+      int showInput(char input);
+      void showMathgame(const char* mathgame);
       void deleteInput();
       void blackScreen();
       void gameOver();

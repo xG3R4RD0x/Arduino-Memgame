@@ -15,9 +15,11 @@ class LEDGame{
     int button_loop();
     std::vector<int> initRound(int size);
     bool playRound(std::vector<int> LEDarray);
+    void Ledtester();
   private:
     int randomNum();
     uint32_t xorshift32();
+    const char* stringToConstChar(const String& str);
 
 };
 
